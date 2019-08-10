@@ -20,17 +20,18 @@ public class MyServiceTest {
 
 	@Test
 	public void testStoreMessages() {
-
+		Message message = new Message();
+		message.setId(11);
+		message.setMessages("Test");
+		boolean b = myService.storeMessages(new Long(11), message);
+		assertEquals(b, true);
 	}
 
 	@Test
 	public void testGetMessages() {
-		List<Message> list = myService.getMessages("");
-		assertEquals(list.size(), 2);
+		List<Message> list = myService.getMessages(new Long(11));
+		assertEquals(list.size(), 1);
 	}
-
-	@Test
-	public void testClearQueue() {
-	}
+	
 
 }
