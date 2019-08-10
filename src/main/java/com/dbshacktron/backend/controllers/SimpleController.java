@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +28,8 @@ public class SimpleController {
     	return null;
     }
     
-    @PostMapping("/message")
-    public ResponseEntity<String> createMeassge(@RequestBody Message message ) {
+    @PostMapping("/queue/{queueId}/message")
+    public ResponseEntity<String> createMeassge(@PathVariable String queueId,@RequestBody Message message ) {
 
     	return null;
     }
