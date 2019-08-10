@@ -35,7 +35,6 @@ public class SimpleController {
 
 		return null;
 	}
-
 	@PostMapping("/message/{queueId}")
 	public void createMeassge(@RequestBody List<Message> message, @PathVariable("queueId") String queueId) {
 		myService.storeMessages(queueId, message);
