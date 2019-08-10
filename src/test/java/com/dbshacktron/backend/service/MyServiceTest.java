@@ -17,7 +17,6 @@ import com.dbshacktron.backend.models.Message;
 public class MyServiceTest {
 	@Autowired
 	private MyService myService;
-
 	@Test
 	public void testStoreMessages() {
 		Message message = new Message();
