@@ -3,6 +3,7 @@ package com.dbshacktron.backend.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,14 +31,13 @@ public class SimpleController {
     	return null;
     }
     
+    @SuppressWarnings("rawtypes")
     @PostMapping("/queue/{queueId}/message")
-    public ResponseEntity<String> createMeassge(@PathVariable String queueId,@RequestBody Message message ) {
-
-		return null;
-	}
-	@PostMapping("/message/{queueId}")
-	public void createMeassge(@RequestBody List<Message> message, @PathVariable("queueId") String queueId) {
-		myService.storeMessages(queueId, message);
+    public ResponseEntity createMeassge(@PathVariable long queueId,@RequestBody Message message ) {
+    	if(myService.storeMessages(queueId, message)) {
+    		return new ResponseEntity(HttpStatus.CREATED);
+    	}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping("/queue/{queueId}/message/{messageId}")
@@ -50,12 +50,12 @@ public class SimpleController {
 	}
 
 	@DeleteMapping("/queue/{queueId}")
-	public void clearQueue(@PathVariable("queueId")String queueId) {
+	public void clearQueue(@PathVariable("queueId")long queueId) {
 		myService.clearQueue(queueId);
 	}
 
 	@GetMapping("/queue/{queueId}/message")
-	public List<Message> ListOfMessage(@PathVariable("queueId") String queueId) {
+	public List<Message> ListOfMessage(@PathVariable("queueId") long queueId) {
 
 		return myService.getMessages(queueId);
 	}

@@ -1,23 +1,25 @@
 package com.dbshacktron.backend.models;
 
 public class Message {
-	private int id;
-	private String messages;
+    private long id;
+    private String messages;
 
-	public int getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getMessages() {
-		return messages;
-	}
+    public String getMessages() {
+        return messages;
+    }
 
-	public void setMessages(String messages) {
-		this.messages = messages;
-	}
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
+
+
 
 }
