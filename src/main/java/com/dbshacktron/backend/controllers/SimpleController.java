@@ -26,6 +26,7 @@ public class SimpleController {
     public String helloWorld() {
         return "Welcome to Hacktron";
     }
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping("/queue")
     public ResponseEntity<Long> createQueue(@RequestBody Queue queue) {
         long id = myService.createQueue(queue);
@@ -35,7 +36,7 @@ public class SimpleController {
         return new ResponseEntity(id,HttpStatus.BAD_REQUEST);
     }
     
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping("/queue/{queueId}/message")
     public ResponseEntity<Long> createMeassge(@PathVariable long queueId,@RequestBody Message message ) {
         long messageId = myService.storeMessages(queueId, message);
@@ -51,9 +52,8 @@ public class SimpleController {
     }
     
     @GetMapping("/queue/{queueId}/message/{messageId}")
-    public Message browseMessage() {
-
-        return new Message();
+    public Message browseMessage(@PathVariable Long queueId,@PathVariable String messageId) {
+        return myService.browseMessage(queueId, messageId);
     }
 
     @DeleteMapping("/queue/{queueId}")

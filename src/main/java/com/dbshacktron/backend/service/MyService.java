@@ -47,7 +47,20 @@ public class MyService {
             }
         }
     }
-    
+    public Message browseMessage(long queueId, String messageId) {
+        Message message = null;
+        Map<Long, Queue> map= DataSet.getInstance().getDataSet();
+        if (map.containsKey(queueId)) {
+            Queue q = map.get(queueId);
+            List<Message> msgList = q.getMessages();
+            for (Message m : msgList) {
+                if (m.getId() == Long.parseLong(messageId)) {
+                    message = m;
+                }
+            }
+        }
+        return message;
+    }  
     public Long createQueue(Queue queue) {
         long queueId = -1;
         Map<Long, Queue> map= DataSet.getInstance().getDataSet();
