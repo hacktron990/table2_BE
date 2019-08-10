@@ -20,7 +20,7 @@ public class MyService {
 			map.put(queueName, queue);
 		}
 	}
-	public List<Message> getMessages(String messages){
-		
+	public List<Message> getMessages(String queue){
+		return map.get(queue).getMessages();
 	}
 }
