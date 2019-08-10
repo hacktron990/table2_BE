@@ -1,32 +1,51 @@
 package com.dbshacktron.backend.service;
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
+import com.dbshacktron.backend.models.DataSet;
 import com.dbshacktron.backend.models.Message;
 import com.dbshacktron.backend.models.Queue;
 
-
+@Service
 public class MyService {
-	private Map<String, com.dbshacktron.backend.models.Queue> map = new HashMap<>();
 
-	public void storeMessages(String queueName,List<Message> messages) {
-		if (map.containsKey(queueName)) {
-			Queue queue = map.get(queueName);
-			queue.setMessages(messages);
-		} else {
-			Queue queue =new Queue();
-			queue.setMessages(messages);
-			map.put(queueName, queue);
-		}
-	}
-	public List<Message> getMessages(String queue){
-		
-		return map.get(queue).getMessages();
-	}
-	
-	public void clearQueue(String queueId) {
-		map.remove(queueId);		
-	}
+    public boolean storeMessages(long queue, Message message) {
+        boolean status = false;
+        Map<Long, Queue> map= DataSet.getInstance().getDataSet();
+        if (map.containsKey(queue)) {
+            Date date = new Date();
+            long time = date.getTime();
+            message.setId(time);
+            map.get(queue).getMessages().add(message);
+            status = true;
+        }
+        return status;
+    }
+
+    public List<Message> getMessages(long id){
+        Map<Long, Queue> map= DataSet.getInstance().getDataSet();
+        return map.get(id).getMessages();
+    }
+    
+    public void clearQueue(long queueId) {
+        Map<Long, Queue> map= DataSet.getInstance().getDataSet();
+        map.remove(queueId);        
+    }
+    
+    public void deleteMessage(long queueId, String messageId) {
+        Map<Long, Queue> map= DataSet.getInstance().getDataSet();
+        if (map.containsKey(queueId)) {
+            Queue q = map.get(queueId);
+            List<Message> msgList = q.getMessages();
+            for (Message m : msgList) {
+                if (m.getId() == Integer.parseInt(messageId)) {
+                    msgList.remove(m);
+                }
+            }
+        }
+    }
 }

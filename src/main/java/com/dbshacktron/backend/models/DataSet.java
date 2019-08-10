@@ -6,7 +6,7 @@ import java.util.Map;
 public class DataSet {
     
     private static DataSet INSTANCE = new DataSet();
-    private Map<String, Queue> dataset = new HashMap<String, Queue>();
+    private Map<Long, Queue> dataset = new HashMap<Long, Queue>();
     private DataSet() {
     }
 
@@ -14,11 +14,11 @@ public class DataSet {
         return INSTANCE;
     }
     
-    public Map<String, Queue> getDataSet() {
+    public Map<Long, Queue> getDataSet() {
         return dataset;
     }
     
-    public Queue getQueue(String queuename) {
-        return dataset.get(queuename);
+    public Queue getQueue(Long id) {
+        return dataset.get(id);
     }
 }
