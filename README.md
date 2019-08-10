@@ -1,9 +1,6 @@
 This backend project for **DBS Hacktron** table 2
 
-# springboot-sample-app
-
-
-DBS Hacktron Backend
+# DBS Hacktron Backend
 
 ## Requirements
 
