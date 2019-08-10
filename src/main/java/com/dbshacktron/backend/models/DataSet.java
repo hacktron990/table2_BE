@@ -1,12 +1,12 @@
 package com.dbshacktron.backend.models;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DataSet {
     
     private static DataSet INSTANCE = new DataSet();
-    private Map<Long, Queue> dataset = new HashMap<Long, Queue>();
+    private Map<Long, Queue> dataset = new ConcurrentHashMap<Long, Queue>();
     private DataSet() {
     }
 
