@@ -24,6 +24,7 @@ public class MyService {
 	public List<Message> getMessages(String queue){
 		return map.get(queue).getMessages();
 	}
+	
 	public void clearQueue(String queueId) {
 		map.remove(queueId);		
 	}

@@ -44,7 +44,6 @@ public class SimpleController {
 	@DeleteMapping("/queue/{queueId}/message/{messageId}")
 	public void removeFromQueue(String queueId, String messageId) {
 	}
-
 	@GetMapping("/queue/{queueId}/message/{messageId}")
 	public Message browseMessage() {
 
