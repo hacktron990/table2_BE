@@ -1,4 +1,4 @@
-package com.dbshacktron.backend;
+package com.dbshacktron.backend.models;
 
 import java.util.HashMap;
 import java.util.Map;
