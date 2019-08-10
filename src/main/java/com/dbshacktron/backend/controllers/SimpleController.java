@@ -25,9 +25,13 @@ public class SimpleController {
 	public String helloWorld() {
 		return "Welcome to Hacktron";
 	}
-
 	@PostMapping("/queue")
 	public ResponseEntity<String> createQueue(@RequestBody Queue queue) {
+    	return null;
+    }
+    
+    @PostMapping("/queue/{queueId}/message")
+    public ResponseEntity<String> createMeassge(@PathVariable String queueId,@RequestBody Message message ) {
 
 		return null;
 	}
