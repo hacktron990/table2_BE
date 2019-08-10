@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.dbshacktron.model.Message;
-import com.dbshacktron.model.Queue;
+import com.dbshacktron.backend.models.Message;
+import com.dbshacktron.backend.models.Queue;
+
 
 public class MyService {
-	private Map<String, Queue> map = new HashMap<>();
+	private Map<String, com.dbshacktron.backend.models.Queue> map = new HashMap<>();
 
 	public void storeMessages(String queueName,List<Message> messages) {
 		if (map.containsKey(queueName)) {
@@ -22,5 +23,8 @@ public class MyService {
 	}
 	public List<Message> getMessages(String queue){
 		return map.get(queue).getMessages();
+	}
+	public void clearQueue(String queueId) {
+		map.remove(queueId);		
 	}
 }
