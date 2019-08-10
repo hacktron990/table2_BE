@@ -29,4 +29,16 @@ public class MyService {
 	public void clearQueue(String queueId) {
 		map.remove(queueId);		
 	}
+	
+    public void deleteMessage(String queueId, String messageId) {
+        if (map.containsKey(queueId)) {
+            Queue q = map.get(queueId);
+            List<Message> msgList = q.getMessages();
+            for (Message m : msgList) {
+                if (m.getId() == Integer.parseInt(messageId)) {
+                    msgList.remove(m);
+                }
+            }
+        }
+    }
 }
