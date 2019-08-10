@@ -19,45 +19,52 @@ import com.dbshacktron.backend.service.MyService;
 
 @RestController
 public class SimpleController {
-	@Autowired
-	private MyService myService;
+    @Autowired
+    private MyService myService;
 
-	@RequestMapping(value = "/")
-	public String helloWorld() {
-		return "Welcome to Hacktron";
-	}
-	@PostMapping("/queue")
-	public ResponseEntity<String> createQueue(@RequestBody Queue queue) {
-    	return null;
+    @RequestMapping(value = "/")
+    public String helloWorld() {
+        return "Welcome to Hacktron";
+    }
+    @PostMapping("/queue")
+    public ResponseEntity<Long> createQueue(@RequestBody Queue queue) {
+        long id = myService.createQueue(queue);
+        if( id != -1) {
+            return new ResponseEntity(id,HttpStatus.CREATED);
+        }
+        return new ResponseEntity(id,HttpStatus.BAD_REQUEST);
     }
     
     @SuppressWarnings("rawtypes")
     @PostMapping("/queue/{queueId}/message")
-    public ResponseEntity createMeassge(@PathVariable long queueId,@RequestBody Message message ) {
-    	if(myService.storeMessages(queueId, message)) {
-    		return new ResponseEntity(HttpStatus.CREATED);
-    	}
-		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-	}
+    public ResponseEntity<Long> createMeassge(@PathVariable long queueId,@RequestBody Message message ) {
+        long messageId = myService.storeMessages(queueId, message);
+        if(messageId != -1) {
+            return new ResponseEntity(messageId,HttpStatus.CREATED);
+        }
+        return new ResponseEntity(messageId,HttpStatus.BAD_REQUEST);
+    }
 
-	@DeleteMapping("/queue/{queueId}/message/{messageId}")
-	public void removeFromQueue(String queueId, String messageId) {
-	}
-	@GetMapping("/queue/{queueId}/message/{messageId}")
-	public Message browseMessage() {
+    @DeleteMapping("/queue/{queueId}/message/{messageId}")
+    public void removeFromQueue(@PathVariable Long queueId,@PathVariable String messageId) {
+        myService.deleteMessage(queueId, messageId);
+    }
+    
+    @GetMapping("/queue/{queueId}/message/{messageId}")
+    public Message browseMessage() {
 
-		return new Message();
-	}
+        return new Message();
+    }
 
-	@DeleteMapping("/queue/{queueId}")
-	public void clearQueue(@PathVariable("queueId")long queueId) {
-		myService.clearQueue(queueId);
-	}
+    @DeleteMapping("/queue/{queueId}")
+    public void clearQueue(@PathVariable("queueId")long queueId) {
+        myService.clearQueue(queueId);
+    }
 
-	@GetMapping("/queue/{queueId}/message")
-	public List<Message> ListOfMessage(@PathVariable("queueId") long queueId) {
+    @GetMapping("/queue/{queueId}/message")
+    public List<Message> ListOfMessage(@PathVariable("queueId") long queueId) {
 
-		return myService.getMessages(queueId);
-	}
+        return myService.getMessages(queueId);
+    }
 
 }

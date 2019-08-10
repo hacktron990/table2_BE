@@ -13,17 +13,16 @@ import com.dbshacktron.backend.models.Queue;
 @Service
 public class MyService {
 
-    public boolean storeMessages(long queue, Message message) {
-        boolean status = false;
+    public Long storeMessages(long queue, Message message) {
+        long messageId = -1;
         Map<Long, Queue> map= DataSet.getInstance().getDataSet();
         if (map.containsKey(queue)) {
             Date date = new Date();
-            long time = date.getTime();
-            message.setId(time);
+            messageId = date.getTime();
+            message.setId(messageId);
             map.get(queue).getMessages().add(message);
-            status = true;
         }
-        return status;
+        return messageId;
     }
 
     public List<Message> getMessages(long id){
@@ -42,10 +41,19 @@ public class MyService {
             Queue q = map.get(queueId);
             List<Message> msgList = q.getMessages();
             for (Message m : msgList) {
-                if (m.getId() == Integer.parseInt(messageId)) {
+                if (m.getId() == Long.parseLong(messageId)) {
                     msgList.remove(m);
                 }
             }
         }
+    }
+    
+    public Long createQueue(Queue queue) {
+        long queueId = -1;
+        Map<Long, Queue> map= DataSet.getInstance().getDataSet();
+        Date date = new Date();
+        queueId = date.getTime();
+        map.put(queueId, queue);
+        return queueId;
     }
 }
